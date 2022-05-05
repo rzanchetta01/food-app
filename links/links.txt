@@ -1,0 +1,6 @@
+http://www.tbca.net.br/base-dados/int_composicao_alimentos.php?cod_produto=C0001C
+http://www.tbca.net.br/base-dados/int_composicao_alimentos.php?cod_produto=C0195C
+http://www.tbca.net.br/base-dados/int_composicao_alimentos.php?cod_produto=C0054C
+http://www.tbca.net.br/base-dados/int_composicao_alimentos.php?cod_produto=C0218C
+http://www.tbca.net.br/base-dados/int_composicao_alimentos.php?cod_produto=C0002C
+http://www.tbca.net.br/base-dados/int_composicao_alimentos.php?cod_produto=C0069C
