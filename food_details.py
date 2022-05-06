@@ -5,47 +5,45 @@ import pandas as pd
 # path to all links of food
 # each food will be created a new csv of that data
 folder_path = "T:\\UAM\\DIMAS_MOBILE_APP\\food-app\\links\\links.txt"
-count = 0
+
+table_header = []
+table_data = []
+
+# set collumns
+table_header.append("Componente")
+table_header.append("Unidades")
+table_header.append("Valor por 100g")
+table_header.append("Colher sopa cheia")
+table_header.append("Copo americano duplo(200mL)")
+table_header.append("Copo americano pequeno(130mL")
+table_header.append("Pedaco Unidade/Fatia (370g)")
+table_header.append("Prato fundo (450g)")
+table_header.append("Prato raso (350g)")
+table_header.append("id")
+
 for line in open(folder_path, 'r').readlines():
         
+        #form request url
         link = line.split(",")
         print(link[1])
         html_file = requests.get(link[1]).content
 
+        #get page html
         soup = BeautifulSoup(html_file, "html.parser")
-        right_page = soup.find('table')
 
-        # get food name/description
+        # get food id
         food_title = soup.find('h5', id="overview")
         food_title = food_title.text.strip()
         food_title = food_title.split(": ")
+        food_code = food_title[1]
+        food_code = food_code.replace("Descrição", " ")
 
-        food_name = food_title[2].split("<<")
-
-        # separete by language
-        food_name_pt = food_name[0]
-        food_name_en = food_name[1].replace(">", "")
-
-
-        # get collumns
-        table_header = []
-        header = soup.find_all("table")[0].find("tr")
-
-        for item in header:
-            try:
-                table_header.append(item.get_text())
-            except:
-                continue
-        
-        table_header.append("nome portugues")
-        table_header.append("nome ingles")
-
-        # get items
-        table_data = []
+        # get food data
         body = soup.find_all("table")[0].find_all("tr")[1:]
 
         for element in body:
             sub_data = []
+            sub_data.append(food_code)
             # get items of each row
             for sub_element in element:
                 try:
@@ -53,14 +51,12 @@ for line in open(folder_path, 'r').readlines():
                 except:
                     continue
             
-            sub_data.append(food_name_pt)
-            sub_data.append(food_name_en)
             table_data.append(sub_data)
 
-        #create file name
-        file_name = folder_path + str(count) + ".csv"
+        
 
-        # create csv
-        dataframe = pd.DataFrame(data = table_data, columns = table_header)
-        dataframe.to_csv(file_name,  sep=";")
-        count = count + 1
+
+# create csv
+dataframe = pd.DataFrame(data = table_data, columns = table_header)
+dataframe.to_csv("T:\\UAM\\DIMAS_MOBILE_APP\\food-app\\links\\foods-details.csv",  sep=";")
+

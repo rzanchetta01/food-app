@@ -26,5 +26,5 @@ for i in range(1,70):
 
 #create link csv
 dataframe = pd.DataFrame(data = table_data)
-dataframe.to_csv("T:\\UAM\\DIMAS_MOBILE_APP\\food-app\\links\links.txt")
+dataframe.to_csv("T:\\UAM\\DIMAS_MOBILE_APP\\food-app\\links\\links.txt")
 
