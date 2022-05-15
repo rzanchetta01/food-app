@@ -24,6 +24,7 @@ for i in range(1,70):
     for data in sub_data:
         table_data.append(data)
 
+
 #create link csv
 dataframe = pd.DataFrame(data = table_data)
 dataframe.to_csv("T:\\UAM\\DIMAS_MOBILE_APP\\food-app\\web scrapper\\links\\links.txt")

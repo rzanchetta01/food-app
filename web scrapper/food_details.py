@@ -6,7 +6,7 @@ import json
 
 # path to all links of food
 # each food will be created a new csv of that data
-folder_path = "T:\\UAM\\DIMAS_MOBILE_APP\\food-app\\web scrapper\links\\links.txt"
+folder_path = "/home/rodrigozanchetta/PROJECTS/DIMAS_MOBILE_APP/food-app/web scrapper/links/links.txt"
 
 
 
@@ -48,10 +48,14 @@ for line in open(folder_path, 'r').readlines():
         #t head
         header = soup.find_all("table")[0].find("tr")
         for items in header:
-            try:
+
+            if table_header.__contains__(items.get_text()):
+                aux_items = items.get_text() + "_2"
+                table_header.append(aux_items)
+
+            else:
                 table_header.append(items.get_text())
-            except:
-                continue
+
 
 
         #t body
@@ -62,23 +66,18 @@ for line in open(folder_path, 'r').readlines():
             sub_data.append(food_code)
             # get items of each row
             for sub_element in element:
-                try:
-                        sub_data.append(sub_element.get_text())
-                except:
-                    continue
 
-            else :
-                table_data.append(sub_data)
+                sub_data.append(sub_element.get_text())
+            
+            table_data.append(sub_data)
 
         
         # export data
         dataframe = pd.DataFrame(data = table_data, columns = table_header)
 
         info_data = [{"name-ptbr": food_name_pt},{"name-eng": food_name_en},{"codigo": food_code}]
-        #info_data = {'carl': 33}
-        
-
-        json_path= "T:\\UAM\\DIMAS_MOBILE_APP\\food-app\\web scrapper\\links\\foods\\food_"+food_code+".json"
+     
+        json_path= "/home/rodrigozanchetta/PROJECTS/DIMAS_MOBILE_APP/food-app/web scrapper/links/foods/food_"+food_code+".json"
         dataframe.to_json(json_path)
 
 
@@ -89,5 +88,3 @@ for line in open(folder_path, 'r').readlines():
         
         with open(json_path, "w") as file:
             json.dump(data, file)
-
-
